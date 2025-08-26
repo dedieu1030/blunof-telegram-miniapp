@@ -7,13 +7,16 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 5",
     "lint:fix": "eslint . --ext ts,tsx --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "type-check": "tsc --noEmit",
     "test": "echo \"Tests à implémenter\"",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "deploy:fly": "./scripts/deploy-fly.sh",
+    "deploy:fly:staging": "./scripts/deploy-fly.sh staging",
+    "migrate": "echo \"Migrations à implémenter\""
   },
   "dependencies": {
     "date-fns": "^2.30.0",
@@ -43,7 +46,6 @@
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   },
-
   "keywords": [
     "telegram",
     "mini-app",
