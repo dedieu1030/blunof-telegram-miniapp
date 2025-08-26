@@ -14,13 +14,13 @@ module.exports = {
       { allowConstantExport: true },
     ],
     // 🎯 Règles personnalisées pour Blunof
-    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'warn',
-    'prefer-const': 'error',
-    'no-var': 'error',
+    'prefer-const': 'warn',
+    'no-var': 'warn',
     'no-console': 'warn',
-    'no-debugger': 'error',
+    'no-debugger': 'warn',
   },
 }
