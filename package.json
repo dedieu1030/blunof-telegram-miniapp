@@ -43,15 +43,7 @@
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   },
-  "lint-staged": {
-    "*.{ts,tsx,js,jsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,css,md}": [
-      "prettier --write"
-    ]
-  },
+
   "keywords": [
     "telegram",
     "mini-app",
