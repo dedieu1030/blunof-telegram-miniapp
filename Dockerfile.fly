@@ -1,0 +1,39 @@
+# Dockerfile optimisé pour Fly.io et Vite
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+
+# Copier les fichiers de dépendances
+COPY package*.json ./
+
+# Installer les dépendances
+RUN npm ci
+
+# Copier le code source
+COPY . .
+
+# Construire l'application Vite
+RUN npm run build
+
+# Stage de production
+FROM node:18-alpine AS production
+
+# Installer serve pour servir les fichiers statiques
+RUN npm install -g serve
+
+WORKDIR /app
+
+# Copier les fichiers construits
+COPY --from=builder /app/dist ./dist
+
+# Copier package.json
+COPY package*.json ./
+
+# Créer l'endpoint de santé
+RUN echo "OK" > ./dist/health
+
+# Exposer le port 8080 (configuré dans fly.toml)
+EXPOSE 8080
+
+# Démarrer le serveur
+CMD ["serve", "-s", "dist", "-l", "8080"]

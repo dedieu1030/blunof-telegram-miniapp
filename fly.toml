@@ -1,9 +1,9 @@
-# Configuration Fly.io pour Blunof Telegram Mini-App
+# Configuration Fly.io pour Blunof Telegram Mini-App (Vite)
 app = "blunof-telegram-miniapp"
 primary_region = "cdg" # Paris, France
 
 [build]
-  dockerfile = "Dockerfile"
+  dockerfile = "Dockerfile.fly"
 
 [env]
   NODE_ENV = "production"
@@ -34,6 +34,9 @@ primary_region = "cdg" # Paris, France
   memory_mb = 512
 
 [deploy]
-  release_command = "npm run migrate"
   strategy = "rolling"
   wait_timeout = "10m"
+
+# Configuration spécifique pour Vite
+[build.args]
+  NODE_ENV = "production"

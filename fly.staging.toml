@@ -3,7 +3,7 @@ app = "blunof-telegram-miniapp-staging"
 primary_region = "cdg" # Paris, France
 
 [build]
-  dockerfile = "Dockerfile"
+  dockerfile = "Dockerfile.fly"
 
 [env]
   NODE_ENV = "staging"
