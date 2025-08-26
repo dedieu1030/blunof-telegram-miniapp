@@ -1,0 +1,125 @@
+# 🌟 Configuration Prometheus pour Blunof
+# Monitoring de la mini-app Telegram
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+# 📊 Règles d'alerte
+rule_files:
+  - "rules/*.yml"
+
+# 🎯 Configuration des alertes
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - alertmanager:9093
+
+# 📱 Configuration des scrapes
+scrape_configs:
+  # 🎯 Prometheus lui-même
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # 📱 Application Blunof
+  - job_name: 'blunof-app'
+    static_configs:
+      - targets: ['blunof-app:80']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+    scrape_timeout: 10s
+
+  # 🌐 Nginx
+  - job_name: 'nginx'
+    static_configs:
+      - targets: ['blunof-app:80']
+    metrics_path: '/nginx_status'
+    scrape_interval: 30s
+
+  # 📊 Node.js (si exposé)
+  - job_name: 'nodejs'
+    static_configs:
+      - targets: ['blunof-app:3000']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  # 🔍 Health checks
+  - job_name: 'health-checks'
+    static_configs:
+      - targets: ['blunof-app:80']
+    metrics_path: '/health'
+    scrape_interval: 60s
+
+  # 📈 Métriques système
+  - job_name: 'system'
+    static_configs:
+      - targets: ['localhost:9100']
+    scrape_interval: 60s
+
+# 🔔 Configuration des alertes
+alerting_rules:
+  - name: blunof_alerts
+    rules:
+      # 🚨 Application down
+      - alert: BlunofAppDown
+        expr: up{job="blunof-app"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Application Blunof est down"
+          description: "L'application Blunof n'est plus accessible depuis {{ $labels.instance }}"
+
+      # ⚠️ Temps de réponse élevé
+      - alert: BlunofHighResponseTime
+        expr: http_request_duration_seconds{job="blunof-app"} > 2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Temps de réponse élevé"
+          description: "Le temps de réponse de Blunof est élevé sur {{ $labels.instance }}"
+
+      # 🔒 Erreurs 5xx
+      - alert: BlunofHighErrorRate
+        expr: rate(http_requests_total{job="blunof-app", status=~"5.."}[5m]) > 0.1
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Taux d'erreur élevé"
+          description: "Taux d'erreur 5xx élevé sur {{ $labels.instance }}"
+
+      # 💾 Utilisation mémoire élevée
+      - alert: BlunofHighMemoryUsage
+        expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes > 0.9
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Utilisation mémoire élevée"
+          description: "L'utilisation mémoire est élevée sur {{ $labels.instance }}"
+
+      # 🚀 Utilisation CPU élevée
+      - alert: BlunofHighCPUUsage
+        expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Utilisation CPU élevée"
+          description: "L'utilisation CPU est élevée sur {{ $labels.instance }}"
+
+# 📊 Métriques personnalisées
+metric_relabel_configs:
+  - source_labels: [__name__]
+    regex: 'http_(.*)'
+    target_label: metric_type
+    replacement: 'http_metric'
+
+  - source_labels: [__name__]
+    regex: 'node_(.*)'
+    target_label: metric_type
+    replacement: 'system_metric'

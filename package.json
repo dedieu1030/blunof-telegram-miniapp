@@ -1,0 +1,75 @@
+{
+  "name": "blunof-telegram-miniapp",
+  "version": "1.0.0",
+  "description": "Mini-app Telegram Blunof - Gestion de factures avec style Uber",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint . --ext ts,tsx --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "type-check": "tsc --noEmit",
+    "test": "echo \"Tests à implémenter\"",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "date-fns": "^2.30.0",
+    "framer-motion": "^10.16.4",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.29",
+    "lucide-react": "^0.263.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.45.4",
+    "react-hot-toast": "^2.4.1",
+    "react-router-dom": "^6.8.1",
+    "zustand": "^4.4.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-react": "^4.0.3",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "prettier": "^3.6.2",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,md}": [
+      "prettier --write"
+    ]
+  },
+  "keywords": [
+    "telegram",
+    "mini-app",
+    "factures",
+    "gestion",
+    "entreprise",
+    "react",
+    "typescript",
+    "uber-design"
+  ],
+  "author": "Blunof Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blunof/blunof-telegram-miniapp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/blunof/blunof-telegram-miniapp/issues"
+  },
+  "homepage": "https://blunof.com"
+}

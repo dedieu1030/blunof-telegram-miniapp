@@ -1,0 +1,229 @@
+/* 🌟 BLUNOF - Styles globaux avec intégration Telegram */
+
+/* Reset CSS moderne */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Variables CSS Telegram */
+:root {
+  --tg-content-safe-area-inset-top: 0px;
+  --tg-content-safe-area-inset-right: 0px;
+  --tg-content-safe-area-inset-bottom: 0px;
+  --tg-content-safe-area-inset-left: 0px;
+  
+  /* Variables de thème */
+  --tg-theme-bg-color: #ffffff;
+  --tg-theme-text-color: #000000;
+  --tg-theme-hint-color: #999999;
+  --tg-theme-link-color: #2481cc;
+  --tg-theme-button-color: #2481cc;
+  --tg-theme-button-text-color: #ffffff;
+}
+
+/* Styles de base */
+html {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000000;
+  background-color: #ffffff;
+  overflow-x: hidden;
+}
+
+/* Typographie */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+/* Liens */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Boutons */
+button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Formulaires */
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+/* Scrollbar personnalisée */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Sélection de texte */
+::selection {
+  background: rgba(33, 150, 243, 0.2);
+  color: inherit;
+}
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid #2196f3;
+  outline-offset: 2px;
+}
+
+/* Animations globales */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Classes utilitaires */
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+.scale-in {
+  animation: scaleIn 0.3s ease-out;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+/* Support du thème sombre Telegram */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --tg-theme-bg-color: #1a1a1a;
+    --tg-theme-text-color: #ffffff;
+    --tg-theme-hint-color: #666666;
+    --tg-theme-link-color: #64b5f6;
+    --tg-theme-button-color: #64b5f6;
+    --tg-theme-button-text-color: #000000;
+  }
+  
+  body {
+    color: #ffffff;
+    background-color: #1a1a1a;
+  }
+}
+
+/* Optimisations pour Telegram Mini-Apps */
+.telegram-miniapp {
+  /* Empêcher le zoom sur iOS */
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  
+  /* Optimisations de performance */
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Support des safe areas */
+.safe-area-top {
+  padding-top: var(--tg-content-safe-area-inset-top);
+}
+
+.safe-area-bottom {
+  padding-bottom: var(--tg-content-safe-area-inset-bottom);
+}
+
+.safe-area-left {
+  padding-left: var(--tg-content-safe-area-inset-left);
+}
+
+.safe-area-right {
+  padding-right: var(--tg-content-safe-area-inset-right);
+}
